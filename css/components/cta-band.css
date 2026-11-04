@@ -1,0 +1,37 @@
+/* ==========================================================================
+   cta-band.css  -  Weblink Computers
+   Closing call-to-action band (brand-fixed blue gradient, the same in every theme).
+   Used on About and Certifications. No display: grid.
+   ========================================================================== */
+
+:root {
+  --ctaBandBg:
+    radial-gradient(circle at 12% 10%, rgba(245, 166, 35, 0.28) 0%, transparent 38%),
+    radial-gradient(circle at 92% 90%, rgba(227, 38, 43, 0.4) 0%, transparent 42%),
+    linear-gradient(135deg, #1647C9 0%, #0F2F8F 55%, #0A1A5C 100%);     /* brand-fixed, same in every theme */
+  --ctaBandText: #D6E0FF;
+  --ctaBandShadow: 0 30px 60px rgba(22, 71, 201, 0.35);
+}
+
+/* ---- Closing band ---- */
+.ctaBand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.25rem;
+  border-radius: var(--cardBorderRadiusLarge);
+  background: var(--ctaBandBg);
+  box-shadow: var(--ctaBandShadow);
+  text-align: center;
+}
+
+.ctaTitle { color: var(--whiteColor); }
+.ctaText { max-width: 36rem; color: var(--ctaBandText); }
+.ctaButtons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+.ctaGhost { border: 1.5px solid var(--whiteColor); color: var(--whiteColor); }
+.ctaGhost:hover { background: var(--whiteColor); color: #0F2F8F; }
+
+@media (min-width: 768px) {
+  .ctaBand { padding: 3rem 2rem; }
+}

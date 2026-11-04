@@ -1,0 +1,140 @@
+/* ==========================================================================
+   layout.css  -  Weblink Computers
+   Container, sections (light / alternate / dark feature), section header,
+   grid helpers and utility classes. Mobile-first: base rules are for phones,
+   media queries only add to them (768 tablet | 1024 laptop | 1280 desktop).
+   Uses variables only (see variables.css).
+   ========================================================================== */
+
+/* ---- Container ---- */
+.container {
+  width: 100%;
+  max-width: calc(var(--containerMaxWidth) + 2 * var(--containerPaddingX));
+  margin-inline: auto;
+  padding-inline: var(--containerPaddingX);
+}
+
+/* ---- Sections ---- */
+.section {
+  position: relative;
+  padding-block: var(--sectionPaddingY);
+  background: var(--pageBg);
+}
+
+.sectionAlt {
+  background: var(--pageBgAlt);
+}
+
+/* dark feature section (Why Choose, Testimonials): dark in hybrid + dark themes,
+   white in the light theme. Cards inside use --darkSectionCardBg. */
+.sectionDark {
+  background: var(--darkSectionBg);
+  color: var(--onDarkTextColor);
+  isolation: isolate;
+}
+
+.sectionDark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--darkSectionGridColor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--darkSectionGridColor) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.sectionDark .sectionTitle {
+  color: var(--onDarkHeadingColor);
+}
+
+.sectionDark .sectionSubtitle {
+  color: var(--onDarkTextColor);
+}
+
+.sectionDark .eyebrow {
+  color: var(--onDarkEyebrowColor);
+}
+
+/* ---- Section header: eyebrow label + title + subtitle ---- */
+.sectionHeader {
+  max-width: 54rem;
+  margin: 0 auto var(--sectionHeaderGap);
+  text-align: center;
+}
+
+.eyebrow {
+  margin-bottom: var(--spaceSm);
+  color: var(--eyebrowColor);
+  font-size: var(--eyebrowFontSize);
+  font-weight: var(--fontWeightExtraBold);
+  letter-spacing: var(--letterSpacingEyebrow);
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  margin-bottom: var(--spaceSm);
+  font-size: var(--headingFontSize);
+  color: var(--headingColor);
+}
+
+.sectionSubtitle {
+  max-width: 54rem;
+  margin-inline: auto;
+  color: var(--paragraphTextColor);
+}
+
+/* ---- Grid helpers (built with flexbox: this site does not use display: grid) ----
+   .grid is one column on phones. Add .colsTablet2 / .colsTablet3 (from 768px)
+   and .colsDesktop2 / .colsDesktop3 / .colsDesktop4 (from 1024px).
+   Every direct child gets an equal share of the row; the last row is left-aligned. */
+.grid {
+  --cols: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gridGap);
+}
+
+.grid > * {
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gridGap)) / var(--cols));
+  max-width: calc((100% - (var(--cols) - 1) * var(--gridGap)) / var(--cols));
+  min-width: 0;
+}
+
+/* .gridCenter centres an incomplete last row instead of left-aligning it */
+.gridCenter {
+  justify-content: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceMd);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spaceMd);
+}
+
+/* ---- Utilities ---- */
+.textCenter { text-align: center; }
+.centerContent { display: flex; justify-content: center; }
+.hideOnMobile { display: none; }
+.hideOnDesktop { display: block; }
+
+@media (min-width: 768px) {
+  .colsTablet2 { --cols: 2; }
+  .colsTablet3 { --cols: 3; }
+}
+
+@media (min-width: 1024px) {
+  .colsDesktop2 { --cols: 2; }
+  .colsDesktop3 { --cols: 3; }
+  .colsDesktop4 { --cols: 4; }
+  .hideOnMobile { display: revert; }
+  .hideOnDesktop { display: none; }
+}

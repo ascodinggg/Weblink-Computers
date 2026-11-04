@@ -1,0 +1,54 @@
+/* ==========================================================================
+   accordion.css  -  Weblink Computers
+   Expandable list. The + / - sign is drawn with two lines (no text). Colours from the card tokens.
+   ========================================================================== */
+
+.accordionItem { border-top: 1px solid var(--chipBorderColor); }
+.accordionItem:first-child { border-top: 0; }
+
+.accordionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.8rem 0;
+  border: 0;
+  background: none;
+  color: var(--cardHeadingColor);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: var(--fontWeightBold);
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordionHead:hover { color: var(--cardLinkColor); }
+
+.accordionSign { position: relative; flex: 0 0 auto; width: 14px; height: 14px; color: var(--cardLinkColor); }
+
+.accordionSign::before,
+.accordionSign::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--transitionFast);
+}
+
+.accordionSign::after { transform: rotate(90deg); }
+.accordionItem.isOpen .accordionSign::after { transform: rotate(0deg); }
+
+.accordionBody {
+  max-height: 0;
+  overflow: hidden;
+  color: var(--cardTextColor);
+  font-size: 0.9rem;
+  transition: max-height 0.35s ease;
+}
+
+.accordionBody p { padding-bottom: 0.9rem; }

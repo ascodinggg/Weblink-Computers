@@ -1,0 +1,63 @@
+/* ==========================================================================
+   animations.css  -  Weblink Computers
+   1. Page-load animation: top bar + navbar drop in together from above; hero text slides in from the left
+      and the hero visual from the right (starts when html gets the class isLoaded).
+   2. Scroll reveal: elements marked by js/core/reveal.js (data-reveal = up | left | right | zoom).
+   Only opacity and transform are animated (smooth, no layout shift). Nothing here runs for visitors
+   who prefer reduced motion (reveal.js does not mark anything and does not add isLoaded).
+   ========================================================================== */
+
+:root {
+  --revealDistance: 2.5rem;
+  --revealDuration: 0.8s;
+  --revealEase: cubic-bezier(0.22, 0.8, 0.3, 1);
+  --loadDuration: 0.9s;
+}
+
+/* ---- 1. Page load ---- */
+@keyframes dropFromTop {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes slideFromLeft {
+  from { transform: translateX(-4rem); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(4rem); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+html.isLoaded #topBar,
+html.isLoaded #siteHeader {
+  animation: dropFromTop var(--loadDuration) var(--revealEase) backwards;
+}
+
+html.isLoaded .heroContent {
+  animation: slideFromLeft var(--loadDuration) var(--revealEase) 0.25s backwards;
+}
+
+html.isLoaded .heroVisual {
+  animation: slideFromRight var(--loadDuration) var(--revealEase) 0.25s backwards;
+}
+
+/* ---- 2. Scroll reveal ---- */
+html.revealReady [data-reveal] {
+  opacity: 0;
+  transition:
+    opacity var(--revealDuration) var(--revealEase) var(--revealDelay, 0ms),
+    transform var(--revealDuration) var(--revealEase) var(--revealDelay, 0ms);
+  will-change: opacity, transform;
+}
+
+html.revealReady [data-reveal="up"] { transform: translateY(var(--revealDistance)); }
+html.revealReady [data-reveal="left"] { transform: translateX(calc(-1 * var(--revealDistance))); }
+html.revealReady [data-reveal="right"] { transform: translateX(var(--revealDistance)); }
+html.revealReady [data-reveal="zoom"] { transform: scale(0.94); }
+
+html.revealReady [data-reveal].isRevealed {
+  opacity: 1;
+  transform: none;
+}

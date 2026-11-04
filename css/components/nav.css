@@ -1,0 +1,436 @@
+/* ==========================================================================
+   nav.css  -  Weblink Computers
+   Top bar, sticky frosted main bar, Courses dropdown, mobile drawer.
+   Mobile-first: base rules are phone, 1024px+ switches to the desktop bar.
+   Uses variables only. No display: grid.
+   ========================================================================== */
+
+/* ---- Top bar (scrolls away) ---- */
+.topBarInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--topBarHeight);
+}
+
+#topBar {
+  background: var(--topBarBg);
+  color: var(--topBarTextColor);
+  font-size: var(--tinyFontSize);
+}
+
+.topBarText {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* marquee: the track holds two identical groups and slides left by one group, then repeats */
+.topBarMarquee { flex: 1 1 0; min-width: 0; overflow: hidden; }
+
+.topBarTrack {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+  animation: topBarScroll 30s linear infinite;
+}
+
+.topBarMarquee:hover .topBarTrack { animation-play-state: paused; }
+
+.topBarGroup { display: flex; flex: 0 0 auto; }
+.topBarItem { padding-right: var(--topBarGap); }
+
+@keyframes topBarScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topBarTrack { animation: none; }
+}
+
+.topBarEmoji {
+  margin-right: var(--spaceXs);
+}
+
+.topBarHighlight {
+  color: var(--topBarHighlightColor);
+  font-weight: var(--fontWeightExtraBold);
+}
+
+.topBarSocial {
+  display: none;            /* phones: social icons live in the drawer */
+  gap: var(--spaceSm);
+}
+
+.socialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  background: var(--topBarIconBg);
+  color: var(--topBarTextColor);
+  transition: transform var(--transitionFast), background var(--transitionFast);
+}
+
+.socialIcon .icon {
+  display: flex;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.socialIcon .icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.socialIcon:hover {
+  transform: translateY(-2px);
+  background: var(--accentAmber);
+  color: var(--inkColor);
+}
+
+/* ---- Main bar: sticky + always frosted ---- */
+#siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: var(--zNav);
+}
+
+.mainNav {
+  background: var(--navBg);
+  -webkit-backdrop-filter: blur(var(--navBlur));
+          backdrop-filter: blur(var(--navBlur));
+  border-bottom: var(--navBorderBottomWidth) solid var(--navBorderColor);
+  color: var(--navTextColor);
+}
+
+.mainNavInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spaceMd);
+  height: var(--navHeight);
+}
+
+/* brand: white circle badge + name (the logo PNG has a white background) */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  color: var(--navBrandColor);
+  font-size: 1.125rem;
+  font-weight: var(--fontWeightExtraBold);
+  line-height: 1.1;
+}
+
+.logoBadge {
+  flex: 0 0 var(--navLogoSize);
+  width: var(--navLogoSize);
+  height: var(--navLogoSize);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--logoBadgeBg);
+  box-shadow: 0 0 0 2px var(--logoBadgeRing);
+}
+
+.logoBadge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brandName {
+  white-space: nowrap;
+}
+
+.navList {
+  display: none;            /* phones / tablets: the drawer is used */
+}
+
+.navToggle,
+.drawerClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1.5px solid var(--navButtonBorder);
+  border-radius: var(--btnBorderRadius);
+  color: var(--navTextColor);
+  transition: background var(--transitionFast);
+}
+
+.navToggle:hover,
+.drawerClose:hover {
+  background: var(--navHoverBg);
+}
+
+.navToggle .icon,
+.drawerClose .icon {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.navToggle .icon svg,
+.drawerClose .icon svg,
+.menuToggle .icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Drawer (mobile / tablet) ---- */
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--zDrawerOverlay);
+  background: var(--drawerOverlay);
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--zDrawer);
+  display: flex;
+  flex-direction: column;
+  width: var(--drawerWidth);
+  padding: var(--spaceMd);
+  overflow-y: auto;
+  background: var(--drawerBg);
+  color: var(--drawerText);
+  border-left: 1px solid var(--drawerBorder);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform var(--transitionBase), visibility 0s linear var(--transitionBase);
+}
+
+.drawer.isOpen {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform var(--transitionBase);
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spaceMd);
+  margin-bottom: var(--spaceLg);
+}
+
+.drawerList {
+  flex: 1 1 auto;
+  --drawerLinkPaddingY: 1.375rem;      /* space above and below each menu item in the mobile / tablet menu */
+}
+
+.drawerItem {
+  border-bottom: 1px solid var(--drawerBorder);
+}
+
+.drawerLinkWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawerLink {
+  display: block;           /* so the top / bottom padding really adds space (a plain <a> is inline) */
+  flex: 1 1 auto;
+  padding: var(--drawerLinkPaddingY) 0.25rem;
+  font-size: 1.0625rem;
+  font-weight: var(--fontWeightSemiBold);
+  color: var(--drawerText);
+}
+
+.drawerLink.isCurrent {
+  color: var(--navActiveColor);
+}
+
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: inherit;
+}
+
+.menuToggle .icon {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform var(--transitionFast);
+}
+
+.hasMenu.isOpen > .drawerLinkWrap .menuToggle .icon,
+.hasMenu.isOpen > .navLinkWrap .menuToggle .icon {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  padding: 0 0 var(--spaceSm) var(--spaceMd);
+}
+
+.drawerSubLink {
+  display: block;
+  padding: 0.8125rem 0.25rem;
+  color: var(--dropdownText);
+  font-size: var(--smallFontSize);
+}
+
+.drawerSubLink.isAll {
+  color: var(--accentAmber);
+  font-weight: var(--fontWeightBold);
+}
+
+.drawerFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceSm);
+  padding-top: var(--spaceLg);
+}
+
+.drawerFoot .socialIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.drawerFoot .socialIcon .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* lock page scroll while the drawer is open */
+html.noScroll {
+  overflow: hidden;
+}
+
+/* ---- Tablet: social icons come back to the top bar ---- */
+@media (min-width: 768px) {
+  .topBarInner {
+    justify-content: space-between;
+  }
+
+  .topBarText {
+    text-align: left;
+    font-size: var(--smallFontSize);
+  }
+
+  .topBarSocial {
+    display: flex;
+  }
+
+  .brand {
+    font-size: 1.375rem;
+  }
+}
+
+/* ---- Desktop bar ---- */
+@media (min-width: 1024px) {
+  .navToggle,
+  .drawerWrap {
+    display: none;
+  }
+
+  .navList {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .navItem {
+    position: relative;
+  }
+
+  .navLinkWrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .navLink {
+    position: relative;
+    display: inline-block;
+    padding: 0.625rem 0.875rem;
+    border-bottom: 3px solid transparent;
+    color: var(--navTextColor);
+    font-size: var(--navLinkFontSize);
+    font-weight: var(--fontWeightSemiBold);
+    transition: background var(--transitionFast), color var(--transitionFast);
+  }
+
+  .navLink:hover {
+    background: var(--navHoverBg);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .navLink.isCurrent {
+    color: var(--navActiveColor);
+    border-bottom-color: var(--navActiveUnderline);
+  }
+
+  .navItem.hasMenu .navLink {
+    padding-right: 0.25rem;
+  }
+
+  .navLinkWrap .menuToggle {
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-left: -0.125rem;
+    color: var(--navTextColor);
+  }
+
+  .navLinkWrap .menuToggle .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: var(--zDropdown);
+    min-width: 16rem;
+    margin-top: 0.25rem;
+    padding: var(--spaceSm);
+    background: var(--dropdownBg);
+    border: 1px solid var(--dropdownBorder);
+    border-radius: var(--tileBorderRadius);
+    box-shadow: var(--shadowFloat);
+  }
+
+  .dropdownLink {
+    display: block;
+    padding: 0.625rem 0.875rem;
+    border-radius: 10px;
+    color: var(--dropdownText);
+    font-size: var(--smallFontSize);
+    font-weight: var(--fontWeightMedium);
+  }
+
+  .dropdownLink:hover,
+  .dropdownLink:focus-visible {
+    background: var(--dropdownHoverBg);
+  }
+
+  .dropdownLink.isAll {
+    margin-top: var(--spaceXs);
+    border-top: 1px solid var(--dropdownBorder);
+    border-radius: 0 0 10px 10px;
+    color: var(--accentAmber);
+    font-weight: var(--fontWeightBold);
+  }
+}

@@ -1,0 +1,261 @@
+/* ==========================================================================
+   footer.css  -  Weblink Computers
+   Mobile-first: one column on phones (Quick Links + Popular Courses side by
+   side), 2 columns on tablet, 4 columns from 1024px.
+   Uses variables only. No display: grid.
+   ========================================================================== */
+
+#siteFooter {
+  background: var(--footerBg);
+  border-top: 4px solid var(--footerBorderTopColor);
+  color: var(--footerTextColor);
+}
+
+.footerInner {
+  padding-top: var(--space2xl);
+  padding-bottom: var(--spaceLg);
+}
+
+/* ---- Columns ---- */
+.footerColumns {
+  --footerGap: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--footerGap) var(--spaceLg);
+}
+
+.footerColumn {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+/* phones: Quick Links and Popular Courses sit side by side */
+.footerQuick,
+.footerCourses {
+  flex: 1 1 calc(50% - var(--spaceLg) / 2);
+}
+
+.footerBrandLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--spaceMd);
+}
+
+.footerLogo {
+  flex: 0 0 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.footerBrandName {
+  white-space: normal;
+  max-width: 9rem;
+  color: var(--footerHeadingColor);
+  font-size: 1.375rem;
+  line-height: 1.15;
+}
+
+.footerTagline {
+  margin-bottom: var(--spaceSm);
+  color: var(--footerTaglineColor);
+  font-size: var(--smallFontSize);
+  font-weight: var(--fontWeightBold);
+}
+
+.footerDescription {
+  max-width: 24rem;
+  color: var(--footerTextColor);
+  font-size: var(--smallFontSize);
+  line-height: 1.7;
+}
+
+.footerHeading {
+  position: relative;
+  margin-bottom: var(--spaceLg);
+  padding-bottom: 0.625rem;
+  color: var(--footerHeadingColor);
+  font-size: 1.0625rem;
+}
+
+.footerHeading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--footerAccentColor);
+}
+
+.footerList li {
+  margin-bottom: 0.75rem;
+}
+
+.footerLink {
+  color: var(--footerLinkColor);
+  font-size: var(--smallFontSize);
+  transition: color var(--transitionFast), padding-left var(--transitionFast);
+}
+
+.footerLink:hover {
+  padding-left: 0.25rem;
+  color: var(--footerLinkHoverColor);
+}
+
+.footerBranchName {
+  color: var(--footerTextColor);
+  font-size: var(--smallFontSize);
+}
+
+.footerPhone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--spaceSm);
+  color: var(--footerHeadingColor);
+  font-weight: var(--fontWeightBold);
+}
+
+.footerPhone .icon,
+.footerMail .icon {
+  display: flex;
+  flex: 0 0 1.125rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--footerAccentColor);
+}
+
+.footerPhone .icon svg,
+.footerMail .icon svg,
+.footerSocialIcon .icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.footerVisit {
+  display: table;
+  margin-top: var(--spaceMd);
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--footerAccentColor);
+  color: var(--footerAccentColor);
+  font-size: var(--smallFontSize);
+  font-weight: var(--fontWeightBold);
+}
+
+/* ---- Contact strip: social left | hours centre | email right ---- */
+.footerStrip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaceMd);
+  margin-top: var(--space2xl);
+  padding: var(--spaceMd) var(--spaceLg);
+  background: var(--footerStripBg);
+  border: 1px solid var(--footerStripBorder);
+  border-radius: var(--cardBorderRadius);
+  text-align: center;
+}
+
+.footerSocial {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spaceSm);
+}
+
+.footerSocialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--footerIconBg);
+  color: var(--footerIconColor);
+  transition: transform var(--transitionFast), background var(--transitionFast), color var(--transitionFast);
+}
+
+.footerSocialIcon .icon {
+  display: flex;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.footerSocialIcon:hover {
+  transform: translateY(-2px);
+  background: var(--accentAmber);
+  color: var(--inkColor);
+}
+
+.footerHours {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.footerHoursLabel {
+  font-size: var(--tinyFontSize);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footerHoursValue {
+  color: var(--footerHeadingColor);
+  font-size: var(--paragraphFontSize);
+}
+
+.footerMail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  color: var(--footerHeadingColor);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: var(--smallFontSize);
+  overflow-wrap: anywhere;
+}
+
+/* ---- Copyright bar ---- */
+.footerCopyright {
+  margin-top: var(--spaceXl);
+  padding-top: var(--spaceMd);
+  border-top: 1px solid var(--footerDividerColor);
+  color: var(--footerTextColor);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+/* ---- Tablet: brand on its own row, then three columns ---- */
+@media (min-width: 768px) {
+  .footerQuick,
+  .footerCourses,
+  .footerBranches {
+    flex: 1 1 calc(33.333% - var(--spaceLg));
+  }
+
+  .footerStrip {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .footerHours {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ---- Desktop: four columns ---- */
+@media (min-width: 1024px) {
+  .footerColumns {
+    flex-wrap: nowrap;
+    gap: var(--space2xl);
+  }
+
+  .footerBrand { flex: 1.35 1 0; }
+  .footerQuick { flex: 0.9 1 0; }
+  .footerCourses { flex: 1.1 1 0; }
+  .footerBranches { flex: 1.2 1 0; }
+}

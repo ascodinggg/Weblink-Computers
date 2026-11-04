@@ -1,0 +1,123 @@
+/* ==========================================================================
+   page-banner.css  -  Weblink Computers
+   Dark page banner for inner pages (breadcrumb, title, text, pill, chips / stat tiles).
+   Chips show on phones, stat tiles from 768px. Colours come from the hero tokens.
+   ========================================================================== */
+
+:root {
+  --bannerTitleSize: 2rem;
+  --bannerPadTop: 2rem;
+  --bannerPadBottom: 2.5rem;
+}
+
+.pageBanner {
+  position: relative;
+  overflow: hidden;
+  padding: var(--bannerPadTop) 0 var(--bannerPadBottom);
+  background: var(--heroBg);
+}
+
+.pageBanner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--heroGridColor) 1px, transparent 1px), linear-gradient(90deg, var(--heroGridColor) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+
+.pageBanner::after {
+  content: "";
+  position: absolute;
+  right: -6rem;
+  top: -7rem;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.16) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.bannerSplit { position: relative; display: flex; flex-direction: column; gap: 1.5rem; }
+.bannerSplit .bannerInner { flex: 1 1 0; min-width: 0; }
+.bannerInner { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: var(--smallFontSize); list-style: none; color: var(--heroTextColor); }
+.breadcrumb a { color: var(--heroTextColor); }
+.breadcrumb a:hover { color: var(--heroAccentColor); }
+.breadcrumb .sep { opacity: 0.6; }
+.breadcrumb .current { color: var(--heroHeadingColor); font-weight: var(--fontWeightSemiBold); }
+
+.bannerTitle { font-size: var(--bannerTitleSize); font-weight: var(--fontWeightBlack); line-height: var(--lineHeightTight); color: var(--heroHeadingColor); }
+.bannerAccent { font-style: normal; color: var(--heroAccentColor); }
+.bannerText { max-width: 37.5rem; font-size: var(--heroTextFontSize); color: var(--heroTextColor); }
+
+.bannerPill {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.875rem;
+  border: 1px solid transparent;
+  border-radius: var(--chipBorderRadius);
+  background: var(--heroChipBg);
+  color: var(--heroChipText);
+  font-size: var(--smallFontSize);
+  font-weight: var(--fontWeightSemiBold);
+}
+
+[data-theme="light"] .bannerPill { border-color: var(--heroChipText); }
+
+/* course icon tile + tags (course detail page) */
+.bannerIconTile { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: var(--tileBorderRadius); background: var(--whiteColor); box-shadow: var(--shadowIconTile); font-size: 1.75rem; }
+.bannerTags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.bannerTags .courseTag { background: rgba(255, 255, 255, 0.1); color: var(--heroTextColor); }
+[data-theme="light"] .bannerTags .courseTag { background: var(--courseTagBg); color: var(--courseTagText); }
+
+/* highlight chips (phones) */
+.bannerChips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+
+.bannerChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--chipBorderColor);
+  border-radius: var(--chipBorderRadius);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--heroTextColor);
+  font-size: 0.8125rem;
+  font-weight: var(--fontWeightSemiBold);
+}
+
+.bannerChip b { color: var(--heroAccentColor); }
+[data-theme="light"] .bannerChip { background: var(--whiteColor); }
+
+/* stat tiles (tablet + desktop) */
+.bannerSide { display: none; position: relative; flex: 0 0 auto; }
+.bannerStats { display: flex; flex-wrap: wrap; gap: 0.625rem; width: 100%; }
+
+.bannerStat {
+  flex: 1 1 calc(50% - 0.3125rem);
+  min-width: 0;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--chipBorderColor);
+  border-radius: var(--tileBorderRadius);
+  background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .bannerStat { background: var(--whiteColor); }
+
+.bannerStat strong { display: block; font-size: 1.5rem; font-weight: var(--fontWeightBlack); line-height: 1.1; color: var(--heroHeadingColor); }
+.bannerStat strong em { font-style: normal; color: var(--heroAccentColor); }
+.bannerStat > span { font-size: 0.78rem; color: var(--heroTextColor); }
+
+@media (min-width: 768px) {
+  :root { --bannerTitleSize: 2.75rem; --bannerPadTop: 3rem; --bannerPadBottom: 3.5rem; }
+  .bannerSplit { flex-direction: row; align-items: center; gap: 3rem; }
+  .bannerInner { gap: 1rem; }
+  .bannerSide { display: flex; width: 22rem; }
+  .bannerStat strong { font-size: 1.875rem; }
+}

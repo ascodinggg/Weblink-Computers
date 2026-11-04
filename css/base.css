@@ -1,0 +1,177 @@
+/* ==========================================================================
+   base.css  -  Weblink Computers
+   Reset, document, typography, links, media, form-control reset, accessibility.
+   Uses variables only (see variables.css). No layout here (see layout.css).
+   ========================================================================== */
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: var(--colorScheme);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+  /* the site never scrolls sideways: anything that overflows is clipped, not scrolled */
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: clip;
+  background: var(--pageBg);
+  color: var(--paragraphTextColor);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--paragraphFontSize);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Typography ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--headingColor);
+  font-weight: var(--fontWeightExtraBold);
+  line-height: var(--lineHeightHeading);
+  overflow-wrap: break-word;
+}
+
+h1 { font-size: var(--heroHeadingFontSize); line-height: var(--lineHeightTight); }
+h2 { font-size: var(--headingFontSize); }
+h3 { font-size: var(--cardHeadingFontSize); }
+h4 { font-size: var(--paragraphFontSize); }
+
+p {
+  color: var(--paragraphTextColor);
+  font-size: var(--paragraphFontSize);
+  overflow-wrap: break-word;
+}
+
+small {
+  font-size: var(--smallFontSize);
+}
+
+strong,
+b {
+  font-weight: var(--fontWeightBold);
+}
+
+/* ---- Links, lists ---- */
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ---- Media ---- */
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+/* ---- Form controls ---- */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--inputPlaceholderColor);
+}
+
+/* ---- Accessibility ---- */
+:focus-visible {
+  outline: 3px solid var(--focusRingColor);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skipLink {
+  position: absolute;
+  left: var(--spaceMd);
+  top: -4rem;
+  z-index: var(--zModal);
+  padding: var(--spaceSm) var(--spaceMd);
+  background: var(--btnPrimaryBg);
+  color: var(--btnPrimaryText);
+  border-radius: var(--btnBorderRadius);
+  font-weight: var(--fontWeightBold);
+}
+
+.skipLink:focus {
+  top: var(--spaceMd);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

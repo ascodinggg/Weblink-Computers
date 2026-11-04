@@ -1,0 +1,167 @@
+/* ==========================================================================
+   about.css  -  Weblink Computers  (about.html)
+   Story, numbers, values, teachers, closing band. The Why Choose section and the authorisation (certification)
+   cards reuse the Home components (cards.css + layout.css). No display: grid.
+   ========================================================================== */
+
+:root {
+  /* number cards: dark background in every theme */
+  --numberCardBg: rgba(12, 22, 56, 0.78);            /* glass dark: see-through navy + blur */
+  --numberCardBorder: rgba(255, 255, 255, 0.16);
+  --numberCardBlur: 12px;
+  --numberCardGlow: radial-gradient(ellipse at 18% 62%, rgba(22, 71, 201, 0.3) 0%, transparent 42%), radial-gradient(ellipse at 82% 62%, rgba(245, 166, 35, 0.26) 0%, transparent 42%);   /* soft colour behind the glass */
+  --numberCardValue: #FFFFFF;
+  --numberCardSuffix: var(--statSignColor);          /* red "+" like the Home stats strip */
+  --numberCardLabel: #B9C4E3;
+  --valueBarBlue: var(--secondaryBlue);
+  --valueBarAmber: var(--accentAmber);
+  --valueBarRed: var(--primaryRed);
+  --storyPlaceholderBg: linear-gradient(135deg, #DCE6FB, #EEF3FF);
+  --storyPlaceholderText: #52627F;
+}
+
+[data-theme="dark"] {
+  --storyPlaceholderBg: linear-gradient(135deg, #1B2A55, #14204A);
+  --storyPlaceholderText: #9FB0DA;
+}
+
+/* ---- Story ---- */
+.storyRow { display: flex; flex-direction: column; gap: 2rem; }
+.storyText { flex: 1 1 0; min-width: 0; }
+.storyText .eyebrow { text-align: left; }
+.storyTitle { margin-bottom: 1rem; font-size: var(--headingFontSize); color: var(--headingColor); }
+.storyText p { margin-bottom: 1rem; color: var(--cardTextColor); }
+.storyTags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; list-style: none; }
+
+.storyTags li {
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--chipBorderRadius);
+  background: var(--courseTagBg);
+  color: var(--courseTagText);
+  font-size: 0.85rem;
+  font-weight: var(--fontWeightBold);
+}
+
+.storyPhoto {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 18rem;
+  overflow: hidden;
+  border-radius: var(--cardBorderRadiusLarge);
+  background: var(--storyPlaceholderBg);
+  box-shadow: var(--cardShadow);
+}
+
+.storyImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.storyPlaceholder { padding: 1rem; color: var(--storyPlaceholderText); font-weight: var(--fontWeightBold); text-align: center; }
+
+.storyBadge {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1.1rem;
+  border-radius: 16px;
+  background: var(--btnPrimaryBg);
+  color: var(--whiteColor);
+  box-shadow: var(--shadowIconTile);
+}
+
+.storyBadge strong { font-size: 1.75rem; font-weight: var(--fontWeightBlack); line-height: 1; }
+.storyBadge span { font-size: 0.8rem; }
+
+/* ---- Numbers ---- */
+.numbersRow { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.numberCard {
+  flex: 1 1 calc(50% - 0.5rem);
+  padding: 1.25rem;
+  border-radius: var(--cardBorderRadius);
+  border: 1px solid var(--numberCardBorder);
+  background: var(--numberCardBg);
+  -webkit-backdrop-filter: blur(var(--numberCardBlur));
+  backdrop-filter: blur(var(--numberCardBlur));
+  box-shadow: var(--cardShadow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+/* soft colour behind the glass cards (fades out inside the section, no hard edges) */
+.numbersSection { background-image: var(--numberCardGlow); }
+
+.numberValue { display: block; font-size: 2rem; font-weight: var(--fontWeightBlack); color: var(--numberCardValue); }
+.numberSuffix { font-style: normal; color: var(--numberCardSuffix); }
+.numberLabel { color: var(--numberCardLabel); font-size: 0.88rem; }
+
+/* ---- Mission / vision / values ---- */
+.valueRow { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.valueCard {
+  flex: 1 1 100%;
+  padding: 1.5rem;
+  border-top: 4px solid var(--valueBarBlue);
+  border-radius: var(--cardBorderRadius);
+  background: var(--cardBg);
+  box-shadow: var(--cardShadow);
+}
+
+.valueCard.toneAmber { border-top-color: var(--valueBarAmber); }
+.valueCard.toneRed { border-top-color: var(--valueBarRed); }
+
+.valueIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 14px;
+  background: var(--toneBlueTile);
+  font-size: 1.4rem;
+}
+
+.valueTitle { margin-bottom: 0.375rem; color: var(--cardHeadingColor); }
+.valueText { color: var(--cardTextColor); font-size: 0.92rem; }
+
+/* ---- Teachers ---- */
+.teamRow { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.teamCard {
+  flex: 1 1 calc(50% - 0.5rem);
+  padding: 1.25rem;
+  border-radius: var(--cardBorderRadius);
+  background: var(--cardBg);
+  box-shadow: var(--cardShadow);
+  text-align: center;
+}
+
+.teamPhoto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: var(--toneBlueTile);
+  color: var(--whiteColor);
+  font-size: 1.75rem;
+  font-weight: var(--fontWeightBlack);
+  object-fit: cover;
+}
+
+.teamName { color: var(--cardHeadingColor); font-size: 1rem; }
+.teamRole { color: var(--cardTextColor); font-size: 0.84rem; }
+
+@media (min-width: 768px) {
+  .numberCard { flex: 1 1 calc(25% - 0.75rem); }
+  .valueCard { flex: 1 1 calc(33.333% - 1rem); }
+  .teamCard { flex: 1 1 calc(25% - 0.75rem); }
+}
+
+@media (min-width: 1024px) {
+  .storyRow { flex-direction: row; align-items: center; gap: 3rem; }
+}

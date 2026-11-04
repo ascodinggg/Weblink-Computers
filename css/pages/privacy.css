@@ -1,0 +1,87 @@
+/* ==========================================================================
+   privacy.css  -  Weblink Computers  (privacy.html)
+   "On this page" menu + numbered text cards. No display: grid.
+   ========================================================================== */
+
+:root {
+  --legalStickyTop: 6rem;              /* distance of the sticky menu / anchor jump from the top (below the header) */
+  --legalNoteBorder: var(--accentAmber);
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.legalRow { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.legalNavTitle {
+  margin-bottom: 0.625rem;
+  color: var(--eyebrowColor);
+  font-size: 0.82rem;
+  font-weight: var(--fontWeightExtraBold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.legalNavList { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
+
+.legalNavList a {
+  display: block;
+  padding: 0.4rem 0.875rem;
+  border: 1.5px solid var(--chipBorderColor);
+  border-radius: var(--chipBorderRadius);
+  color: var(--cardLinkColor);
+  font-size: 0.82rem;
+  font-weight: var(--fontWeightBold);
+  transition: background var(--transitionFast), color var(--transitionFast), border-color var(--transitionFast);
+}
+
+.legalNavList a:hover { border-color: var(--chipActiveBg); }
+
+.legalNavList a.isActive { border-color: var(--chipActiveBg); background: var(--chipActiveBg); color: var(--chipActiveText); }
+
+.legalBody { display: flex; flex: 1 1 0; flex-direction: column; gap: 1rem; min-width: 0; }
+
+.legalCard {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  scroll-margin-top: var(--legalStickyTop);
+  border-radius: var(--cardBorderRadius);
+  background: var(--cardBg);
+  box-shadow: var(--cardShadow);
+}
+
+.legalNum {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--toneBlueTile);
+  color: var(--whiteColor);
+  font-size: 0.9rem;
+  font-weight: var(--fontWeightBlack);
+}
+
+.legalTitle { margin-bottom: 0.375rem; color: var(--cardHeadingColor); font-size: 1.15rem; }
+.legalText { color: var(--cardTextColor); font-size: 0.95rem; }
+
+.legalNote {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--legalNoteBorder);
+  border-radius: var(--cardBorderRadius);
+  background: var(--cardBgSoft);
+  color: var(--cardTextColor);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 1024px) {
+  .legalRow { flex-direction: row; align-items: flex-start; gap: 2.5rem; }
+  .legalNav { position: sticky; top: var(--legalStickyTop); flex: 0 0 16rem; }
+  .legalNavList { flex-direction: column; gap: 0.25rem; }
+  .legalNavList a { padding: 0.55rem 0.875rem; border: 0; border-radius: 10px; font-size: 0.9rem; }
+  .legalCard { padding: 1.5rem; }
+}

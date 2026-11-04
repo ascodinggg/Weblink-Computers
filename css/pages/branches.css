@@ -1,0 +1,8 @@
+/* ==========================================================================
+   branches.css  -  Weblink Computers  (branches.html)
+   Branch blocks and cards: components/branch-card.css. Chips: components/chips.css. No display: grid.
+   ========================================================================== */
+
+.branchesBody { padding-bottom: var(--sectionPaddingY); }
+.jumpBar { margin-bottom: 2rem; }
+.branchesPage .morePanel { margin-top: var(--space2xl); }

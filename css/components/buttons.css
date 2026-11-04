@@ -1,0 +1,76 @@
+/* ==========================================================================
+   buttons.css  -  Weblink Computers
+   .btn is the shape; add ONE colour class: .btnPrimary (red), .btnAmber, .btnGhost.
+   .btnFull makes it full width on phones. Uses variables only. No display: grid.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spaceSm);
+  padding: var(--btnPaddingY) var(--btnPaddingX);
+  border: 2px solid transparent;
+  border-radius: var(--btnBorderRadius);
+  font-size: var(--btnFontSize);
+  font-weight: var(--btnFontWeight);
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: transform var(--transitionFast), background var(--transitionFast), box-shadow var(--transitionFast), color var(--transitionFast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btnPrimary {
+  background: var(--btnPrimaryBg);
+  color: var(--btnPrimaryText);
+  box-shadow: var(--shadowButtonRed);
+}
+
+.btnPrimary:hover {
+  background: var(--btnPrimaryHoverBg);
+}
+
+.btnAmber {
+  background: var(--btnAmberBg);
+  color: var(--btnAmberText);
+  box-shadow: var(--shadowButtonAmber);
+}
+
+.btnAmber:hover {
+  background: var(--btnAmberHoverBg);
+}
+
+/* outline button used on the hero (colour follows the theme's hero ghost colour) */
+.btnGhost {
+  border-color: var(--heroGhostBtnColor);
+  color: var(--heroGhostBtnColor);
+  background: transparent;
+}
+
+.btnGhost:hover {
+  background: var(--heroGhostBtnColor);
+  color: var(--btnAmberText);
+}
+
+.btnFull {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .btnFull {
+    width: auto;
+  }
+}
+
+/* WhatsApp-green button (course page, branches page) */
+:root {
+  --whatsappBtnBg: #25D366;
+  --whatsappBtnText: #FFFFFF;
+}
+
+.btnWhatsapp { background: var(--whatsappBtnBg); color: var(--whatsappBtnText); }
+.btnWhatsapp:hover { filter: brightness(0.94); }

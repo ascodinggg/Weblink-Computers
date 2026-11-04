@@ -1,0 +1,100 @@
+/* ==========================================================================
+   gallery.css  -  Weblink Computers  (gallery.html)
+   Category chips, photo / video cards, load more. The viewer is components/lightbox.css. No display: grid.
+   ========================================================================== */
+
+:root {
+  --photoGap: 0.75rem;
+  --photoHeight: 9.5rem;
+  --photoOverlay: linear-gradient(transparent 45%, rgba(8, 14, 32, 0.78));
+  --photoCaptionColor: #FFFFFF;
+  --photoPlayBg: rgba(255, 255, 255, 0.92);
+  --photoPlayColor: #0F2F8F;
+  --photoBadgeBg: rgba(8, 14, 32, 0.6);
+  --photoTealTile: linear-gradient(135deg, #3FA9A0, #18756E);
+  --photoVioletTile: linear-gradient(135deg, #7A5CFF, #3B2BB0);
+}
+
+.galleryFilters { justify-content: center; margin-bottom: 1.75rem; }
+
+.photoGrid { display: flex; flex-wrap: wrap; gap: var(--photoGap); }
+
+.photoTile {
+  --photoTileBg: var(--toneBlueTile);
+  position: relative;
+  flex: 0 0 calc((100% - var(--photoGap)) / 2);
+  height: var(--photoHeight);
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: var(--cardBorderRadius);
+  background: var(--photoTileBg);
+  box-shadow: var(--cardShadow);
+  color: var(--photoCaptionColor);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--transitionFast), box-shadow var(--transitionFast);
+}
+
+.photoTile.toneRed { --photoTileBg: var(--toneRedTile); }
+.photoTile.toneAmber { --photoTileBg: var(--toneAmberTile); }
+.photoTile.toneTeal { --photoTileBg: var(--photoTealTile); }
+.photoTile.toneViolet { --photoTileBg: var(--photoVioletTile); }
+
+.photoTile::after { content: ""; position: absolute; inset: 0; background: var(--photoOverlay); }
+.photoTile:hover { transform: translateY(-4px); }
+
+.photoImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.photoTile:hover .photoImage { transform: scale(1.06); }
+
+.photoPlaceholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; }
+
+.photoCaption { position: absolute; left: 0.75rem; right: 0.75rem; bottom: 0.6rem; z-index: 1; font-size: 0.82rem; font-weight: var(--fontWeightBold); }
+
+.photoPlay {
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  left: calc(50% - 1.5rem);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding-left: 0.2rem;
+  border-radius: 50%;
+  background: var(--photoPlayBg);
+  color: var(--photoPlayColor);
+  font-size: 1.1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transitionFast);
+}
+
+.photoTile:hover .photoPlay { transform: scale(1.12); }
+
+.photoBadge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--chipBorderRadius);
+  background: var(--photoBadgeBg);
+  font-size: 0.7rem;
+  font-weight: var(--fontWeightBold);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.galleryCount { margin-top: 1.25rem; color: var(--mutedTextColor); font-size: 0.85rem; text-align: center; }
+.galleryMore { display: flex; justify-content: center; margin-top: 1.25rem; }
+.galleryEmpty { flex: 1 1 100%; padding: 2rem 1rem; color: var(--cardTextColor); text-align: center; }
+
+@media (min-width: 768px) {
+  .photoTile { flex: 0 0 calc((100% - 2 * var(--photoGap)) / 3); height: 12rem; }
+  .photoCaption { font-size: 0.9rem; }
+}
+
+@media (min-width: 1024px) {
+  .photoTile { flex: 0 0 calc((100% - 3 * var(--photoGap)) / 4); height: 13rem; }
+}

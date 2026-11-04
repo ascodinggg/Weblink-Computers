@@ -1,0 +1,60 @@
+/* ==========================================================================
+   chips.css  -  Weblink Computers
+   Filter chips (.chip, .isActive) and course pills (.coursePill). Used on Home now,
+   Courses page later. Colours come from the global chip tokens. No display: grid.
+   ========================================================================== */
+
+.chipRow,
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.chipRow {
+  margin-bottom: var(--spaceLg);
+}
+
+.chip,
+.coursePill {
+  padding: 0.4375rem 0.8125rem;
+  border: 1.5px solid var(--chipBorderColor);
+  border-radius: var(--chipBorderRadius);
+  background: var(--chipBg);
+  color: var(--chipTextColor);
+  font-size: 0.8125rem;
+  font-weight: var(--fontWeightSemiBold);
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background var(--transitionFast), border-color var(--transitionFast), color var(--transitionFast);
+}
+
+.chip:hover,
+.coursePill:hover {
+  border-color: var(--chipActiveBg);
+}
+
+.chip.isActive,
+.coursePill:hover {
+  background: var(--chipActiveBg);
+  border-color: var(--chipActiveBg);
+  color: var(--chipActiveText);
+}
+
+.coursePillMore {
+  border-style: dashed;
+  border-color: var(--cardLinkColor);
+  color: var(--cardLinkColor);
+  font-weight: var(--fontWeightBold);
+}
+
+@media (min-width: 768px) {
+  .chipRow,
+  .pillRow { gap: 0.625rem; }
+
+  .chip,
+  .coursePill { padding: 0.5625rem 1.125rem; font-size: 0.875rem; }
+
+  .chipRow { margin-bottom: var(--spaceXl); }
+}

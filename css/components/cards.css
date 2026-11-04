@@ -1,0 +1,462 @@
+/* ==========================================================================
+   cards.css  -  Weblink Computers
+   Course, branch, feature and stat cards.
+   (Card styles are added in the next step. Section-specific tokens are declared first.)
+   ========================================================================== */
+
+/* ---- Local tokens: stats strip (built from global tokens, so they follow the theme) ---- */
+:root {
+  --ghostNumberColor: rgba(22, 71, 201, 0.1);       /* Why Choose ghost numbers (Home + About) */
+  --statCardBg: var(--cardBg);
+  --statBorderColor: var(--darkSectionCardBorder);
+  --statDividerColor: var(--dividerColor);
+  --statIconBg: var(--iconTileBg);
+  --statNumberColor: var(--secondaryBlue);
+  --statSignColor: var(--priceColor);
+  --statLabelColor: var(--cardTextColor);
+  --statShadow: 0 22px 50px rgba(10, 16, 32, 0.28);
+}
+
+[data-theme="dark"] {
+  --ghostNumberColor: rgba(255, 255, 255, 0.07);
+}
+
+/* ---- Local tokens: feature (Why Choose) card tones ---- */
+:root {
+  --toneRedBar: var(--primaryRed);
+  --toneRedTile: linear-gradient(135deg, #FF6B6F, var(--primaryRed));
+  --toneRedGlow: rgba(227, 38, 43, 0.35);
+  --toneBlueBar: var(--secondaryBlue);
+  --toneBlueTile: linear-gradient(135deg, #4A7BFF, var(--secondaryBlue));
+  --toneBlueGlow: rgba(22, 71, 201, 0.35);
+  --toneAmberBar: var(--accentAmber);
+  --toneAmberTile: linear-gradient(135deg, #FFC65A, var(--accentAmber));
+  --toneAmberGlow: rgba(245, 166, 35, 0.4);
+  --featureIconSize: 3.125rem;
+}
+
+/* ---- Local tokens: certification card badge ---- */
+:root {
+  --certBadgeBg: #FFFFFF;                /* the round badge stays white in every theme (like a real logo) */
+  --certBadgeBorder: #E3E9F5;
+  --certBadgeCaption: #6B7794;
+  --certBadgeShadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --certBadgeSize: 4.5rem;
+}
+
+/* ---- Local tokens: course card ---- */
+:root {
+  --courseTagBg: var(--iconTileBg);
+  --courseTagText: var(--secondaryBlue);
+  --courseOldPriceColor: var(--mutedColor);
+  --courseCardIconSize: 3.25rem;
+}
+
+[data-theme="dark"] {
+  --courseTagText: var(--heroChipText);
+  --courseOldPriceColor: #7E8BB0;
+  --statNumberColor: var(--whiteColor);
+  --statShadow: 0 22px 50px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] {
+  --statShadow: 0 22px 50px rgba(20, 33, 61, 0.18);
+}
+
+/* ==========================================================================
+   Stats strip  (floats over the bottom edge of the hero; 2x2 on phones, 4 across on desktop)
+   ========================================================================== */
+.statsSection {
+  position: relative;
+  z-index: 2;
+  /* equal padding above and below puts the strip's centre exactly on the 50% line:
+     top half = hero background (from .heroStage), bottom half = page background */
+  padding: var(--spaceLg) 0;
+  background: linear-gradient(to bottom, transparent 50%, var(--pageBg) 50%);
+}
+
+.statStrip {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--statCardBg);
+  border: 1px solid var(--statBorderColor);
+  border-top: 4px solid var(--accentAmber);
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--statShadow);
+  overflow: hidden;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  flex: 1 1 50%;
+  min-width: 0;
+  padding: var(--spaceLg) var(--spaceSm);
+  text-align: center;
+  border-bottom: 1px solid var(--statDividerColor);
+}
+
+.statItem:nth-child(odd) { border-right: 1px solid var(--statDividerColor); }
+.statItem:nth-last-child(-n+2) { border-bottom: 0; }
+
+.statIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.875rem;
+  height: 2.875rem;
+  border-radius: var(--iconTileBorderRadius);
+  background: var(--statIconBg);
+  font-size: 1.375rem;
+}
+
+.statNumber {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-size: var(--statNumberFontSize);
+  font-weight: var(--fontWeightBlack);
+  line-height: 1.1;
+  color: var(--statNumberColor);
+}
+
+.statSuffix {
+  font-size: 0.65em;
+  font-weight: var(--fontWeightBlack);
+  color: var(--statSignColor);
+}
+
+.statLabel {
+  font-size: var(--statLabelFontSize);
+  font-weight: var(--fontWeightSemiBold);
+  color: var(--statLabelColor);
+}
+
+@media (min-width: 768px) {
+  .statStrip { flex-wrap: nowrap; }
+  .statItem { flex: 1 1 0; padding: var(--spaceLg) var(--spaceMd); border-bottom: 0; border-right: 1px solid var(--statDividerColor); }
+  .statItem:nth-child(odd) { border-right: 1px solid var(--statDividerColor); }
+  .statItem:last-child { border-right: 0; }
+  .statNumber { font-size: 2.125rem; }
+}
+
+/* ==========================================================================
+   Course card  (only the View Details line is a link)
+   ========================================================================== */
+.courseCard {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spaceMd);
+  background: var(--cardBg);
+  border: 1px solid var(--cardBorderColor);
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--cardShadow);
+  transition: transform var(--transitionFast), box-shadow var(--transitionFast);
+}
+
+.courseCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cardHoverShadow);
+}
+
+/* the card is not clickable, so no pointer; only the link text reacts */
+
+.courseCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spaceSm);
+  margin-bottom: 0.875rem;
+}
+
+.courseIcon,
+.courseImage {
+  flex: 0 0 auto;
+  width: var(--courseCardIconSize);
+  height: var(--courseCardIconSize);
+  border-radius: var(--iconTileBorderRadius);
+}
+
+.courseIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--iconTileBg);
+  font-size: 1.625rem;
+}
+
+.courseImage { object-fit: cover; }
+
+.courseBadges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.375rem;
+}
+
+.badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--badgeBorderRadius);
+  font-size: 0.6875rem;
+  font-weight: var(--fontWeightExtraBold);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badgeOffer { background: var(--badgeOfferBg); color: var(--badgeOfferText); }
+.badgeGovt { background: var(--badgeGovtBg); color: var(--badgeGovtText); }
+
+.courseTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.courseTag {
+  padding: 0.1875rem 0.625rem;
+  border-radius: var(--badgeBorderRadius);
+  background: var(--courseTagBg);
+  color: var(--courseTagText);
+  font-size: 0.71875rem;
+  font-weight: var(--fontWeightBold);
+}
+
+.courseName {
+  margin-bottom: 0.375rem;
+  font-size: var(--cardHeadingFontSize);
+  line-height: 1.25;
+  color: var(--cardHeadingColor);
+}
+
+.courseText {
+  flex: 1 1 auto;
+  margin-bottom: 0.875rem;
+  font-size: 0.84375rem;
+  line-height: 1.5;
+  color: var(--cardTextColor);
+}
+
+.courseFoot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spaceSm);
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--cardBorderColor);
+}
+
+.courseFee { line-height: 1.1; }
+
+.courseFeeNow {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: var(--fontWeightExtraBold);
+  color: var(--priceColor);
+}
+
+.courseFeeOld {
+  display: block;
+  font-size: 0.78125rem;
+  color: var(--courseOldPriceColor);
+}
+
+.courseFeeContact {
+  font-size: 0.90625rem;
+  font-weight: var(--fontWeightBold);
+  color: var(--cardTextColor);
+}
+
+.courseMore {
+  font-size: 0.84375rem;
+  font-weight: var(--fontWeightBold);
+  white-space: nowrap;
+  color: var(--cardLinkColor);
+  cursor: pointer;
+}
+
+.courseMore:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Feature card (Why Choose): compact row on phones, tall card with ghost number from 768px
+   ========================================================================== */
+.featureCard {
+  --toneBar: var(--toneBlueBar);
+  --toneTile: var(--toneBlueTile);
+  --toneGlow: var(--toneBlueGlow);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.125rem;
+  overflow: hidden;
+  background: var(--darkSectionCardBg);
+  border: 1px solid var(--darkSectionCardBorder);
+  border-radius: var(--cardBorderRadius);
+  transition: transform var(--transitionFast), box-shadow var(--transitionFast);
+}
+
+.featureCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--toneBar);
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--darkSectionCardShadow);
+}
+
+.toneRed { --toneBar: var(--toneRedBar); --toneTile: var(--toneRedTile); --toneGlow: var(--toneRedGlow); }
+.toneBlue { --toneBar: var(--toneBlueBar); --toneTile: var(--toneBlueTile); --toneGlow: var(--toneBlueGlow); }
+.toneAmber { --toneBar: var(--toneAmberBar); --toneTile: var(--toneAmberTile); --toneGlow: var(--toneAmberGlow); }
+
+.featureNumber { display: none; }
+
+.featureIcon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--featureIconSize);
+  height: var(--featureIconSize);
+  border-radius: var(--iconTileBorderRadius);
+  background: var(--toneTile);
+  box-shadow: 0 8px 18px var(--toneGlow);
+  font-size: 1.5rem;
+}
+
+.featureBody { min-width: 0; }
+
+.featureTitle {
+  margin-bottom: 0.25rem;
+  font-size: var(--cardHeadingFontSize);
+  color: var(--cardHeadingColor);
+}
+
+.featureText {
+  font-size: 0.90625rem;
+  line-height: 1.6;
+  color: var(--cardTextColor);
+}
+
+@media (min-width: 768px) {
+  .featureCard {
+    flex-direction: column;
+    gap: 0;
+    padding: 1.75rem 1.625rem 1.625rem;
+  }
+
+  .featureIcon {
+    --featureIconSize: 3.625rem;
+    margin-bottom: 1.125rem;
+    font-size: 1.75rem;
+  }
+
+  .featureTitle { margin-bottom: 0.5rem; font-size: 1.1875rem; }
+
+  .featureNumber {
+    position: absolute;
+    top: 0.375rem;
+    right: 1.125rem;
+    display: block;
+    font-size: 4rem;
+    font-weight: var(--fontWeightBlack);
+    line-height: 1;
+    color: var(--ghostNumberColor);
+  }
+}
+
+/* ==========================================================================
+   Certification card: compact row on phones, centred tall card from 768px
+   ========================================================================== */
+.certCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.125rem;
+  overflow: hidden;
+  background: var(--cardBgSoft);
+  border: 1px solid var(--cardBorderColor);
+  border-radius: var(--cardBorderRadiusLarge);
+  transition: transform var(--transitionFast), box-shadow var(--transitionFast);
+}
+
+.certCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--toneBar, var(--toneBlueBar));
+}
+
+.certCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--cardHoverShadow);
+}
+
+.certBadge {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--certBadgeSize);
+  height: var(--certBadgeSize);
+  border-radius: 50%;
+  background: var(--certBadgeBg);
+  border: 1px solid var(--certBadgeBorder);
+  box-shadow: var(--certBadgeShadow);
+  color: var(--toneBar, var(--toneBlueBar));
+  font-size: 0.875rem;
+  font-weight: var(--fontWeightBlack);
+  line-height: 1.1;
+  text-align: center;
+}
+
+.certBadgeCaption {
+  margin-top: 0.1875rem;
+  font-size: 0.5rem;
+  font-weight: var(--fontWeightBold);
+  letter-spacing: 1px;
+  color: var(--certBadgeCaption);
+}
+
+.certBody { min-width: 0; }
+
+.certTitle {
+  margin-bottom: 0.25rem;
+  font-size: var(--cardHeadingFontSize);
+  color: var(--cardHeadingColor);
+}
+
+.certText {
+  font-size: 0.90625rem;
+  line-height: 1.6;
+  color: var(--cardTextColor);
+}
+
+@media (min-width: 768px) {
+  .certCard {
+    --certBadgeSize: 7rem;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.875rem 1.625rem 1.625rem;
+    text-align: center;
+  }
+
+  .certBadge { margin-bottom: 1.125rem; font-size: 1.25rem; }
+  .certBadgeCaption { font-size: 0.65625rem; }
+  .certTitle { margin-bottom: 0.5rem; font-size: 1.25rem; }
+}
