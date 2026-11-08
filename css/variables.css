@@ -1,0 +1,564 @@
+/* ==========================================================================
+   variables.css  -  Weblink Computers
+   THE ONLY place where design values live.
+   Every other CSS file uses var(--name) and never a raw colour, size or radius.
+   Change a value here and the whole site updates.
+
+   WHAT LIVES HERE vs ELSEWHERE
+   - Here (global): anything shared by more than one place, or that changes with the theme:
+     brand palette, type, spacing, radius, motion, layout sizes, buttons, nav, hero, dark
+     sections, cards, chips, footer, forms, floating controls, and the 3 theme blocks.
+   - In the section's own file: tokens used by ONE section only. They are declared at the top
+     of that file and are built from the global tokens above (so they still follow the theme):
+       css/components/cards.css  -> stats strip tokens   (--stat...)
+       css/pages/home.css        -> career banner, gallery, hero tech scene, testimonial slider,
+                                    "Can't find your course?" panel, ghost numbers, quote marks
+
+   File map
+   1. :root               theme-independent tokens (brand, type, spacing, radius, motion, layout)
+   2. Responsive tokens   mobile-first overrides of size tokens (768 / 1024 / 1280)
+   3. Theme: hybrid       default look  (dark nav / hero / footer, light content sections)
+   4. Theme: dark         everything dark navy
+   5. Theme: light        everything light
+
+   Theme switching: <html data-theme="hybrid | dark | light">  (set by js/core/theme.js; the switcher button is floating-buttons.js;
+   default comes from config.js). All three theme blocks define the SAME token names.
+
+   Naming: camelCase only.
+   Breakpoints (CSS cannot read variables inside @media, so they are written here once):
+     tablet 768px  |  laptop 1024px  |  desktop 1280px
+   ========================================================================== */
+
+/* ==========================================================================
+   1. THEME-INDEPENDENT TOKENS
+   ========================================================================== */
+:root {
+
+  /* ---- Brand palette (raw colours; components should prefer the semantic tokens below) ---- */
+  --primaryRed: #E3262B;
+  --primaryRedLight: #FF5A5F;          /* red text on dark backgrounds */
+  --primaryRedSoft: #FF6B6F;
+  --secondaryBlue: #1647C9;
+  --secondaryBlueBright: #4A7BFF;
+  --secondaryBlueDark: #0F2F8F;
+  --secondaryBlueDeep: #0A1A5C;
+  --accentAmber: #F5A623;
+  --accentAmberLight: #FFC65A;
+  --accentAmberDark: #B36B00;          /* amber text on light backgrounds */
+  --whatsappGreen: #25D366;
+  --whatsappGreenDark: #1EBE5A;
+
+  /* ---- Neutrals ---- */
+  --whiteColor: #FFFFFF;
+  --navy900: #0A1020;
+  --navy850: #060B17;
+  --navy800: #0E1630;
+  --navy700: #131D3B;
+  --navy600: #1B2850;
+  --navy500: #26366B;
+  --navyGlow: #1D3380;                 /* soft blue glow used in dark backgrounds */
+  --inkColor: #14213D;
+  --slateColor: #4A5672;
+  --mutedColor: #8A95AD;
+  --mistColor: #F4F7FD;
+  --lineColor: #E3E9F5;
+  --paleBlue: #EAF0FF;
+
+  /* ---- Typography ---- */
+  --fontFamilyBase: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fontFamilyMono: Consolas, "SFMono-Regular", Menlo, monospace;
+  --fontWeightRegular: 400;
+  --fontWeightMedium: 500;
+  --fontWeightSemiBold: 600;
+  --fontWeightBold: 700;
+  --fontWeightExtraBold: 800;
+  --fontWeightBlack: 900;
+  --lineHeightTight: 1.1;
+  --lineHeightHeading: 1.2;
+  --lineHeightBase: 1.6;
+  --letterSpacingEyebrow: 1.5px;
+
+  /* Font sizes - mobile-first values, enlarged in section 2 */
+  --heroHeadingFontSize: 2.125rem;     /* 34px */
+  --headingFontSize: 1.75rem;          /* 28px  section headings */
+  --subheadingFontSize: 1.375rem;      /* 22px */
+  --cardHeadingFontSize: 1.0625rem;    /* 17px */
+  --paragraphFontSize: 1rem;           /* 16px */
+  --heroTextFontSize: 0.96875rem;      /* 15.5px */
+  --smallFontSize: 0.875rem;           /* 14px */
+  --tinyFontSize: 0.75rem;             /* 12px */
+  --eyebrowFontSize: 0.8125rem;        /* 13px */
+  --btnFontSize: 0.9375rem;            /* 15px */
+  --navLinkFontSize: 0.96875rem;       /* 15.5px */
+  --statNumberFontSize: 1.625rem;      /* 26px */
+  --statLabelFontSize: 0.78125rem;     /* 12.5px */
+
+  /* ---- Spacing scale ---- */
+  --spaceXs: 0.25rem;
+  --spaceSm: 0.5rem;
+  --spaceMd: 1rem;
+  --spaceLg: 1.5rem;
+  --spaceXl: 2rem;
+  --space2xl: 3rem;
+  --space3xl: 4.5rem;
+  --sectionPaddingY: 3rem;             /* vertical padding of every section (mobile) */
+  --sectionHeaderGap: 1.625rem;        /* gap under a section header (mobile) */
+  --gridGap: 0.875rem;
+  --containerMaxWidth: 1180px;
+  --containerPaddingX: 1rem;
+
+  /* ---- Radius ---- */
+  --btnBorderRadius: 12px;
+  --cardBorderRadius: 20px;
+  --cardBorderRadiusLarge: 22px;
+  --bannerBorderRadius: 22px;
+  --tileBorderRadius: 16px;
+  --iconTileBorderRadius: 15px;
+  --inputBorderRadius: 12px;
+  --chipBorderRadius: 99px;
+  --badgeBorderRadius: 99px;
+
+  /* ---- Layout / component sizes ---- */
+  --topBarHeight: 38px;
+  --topBarGap: 4rem;                  /* space between the repeated top bar messages */
+  --navHeight: 68px;
+  --navLogoSize: 44px;
+  --navBorderBottomWidth: 3px;
+  --iconTileSize: 52px;
+  --iconTileLargeSize: 58px;
+  --floatButtonSize: 52px;
+  --floatOffset: 16px;
+  --drawerWidth: min(86vw, 360px);
+
+  /* ---- Static shadows ---- */
+  --shadowButtonRed: 0 10px 24px rgba(227, 38, 43, 0.35);
+  --shadowButtonAmber: 0 12px 26px rgba(245, 166, 35, 0.4);
+  --shadowButtonBlue: 0 10px 24px rgba(22, 71, 201, 0.35);
+  --shadowFloat: 0 10px 26px rgba(0, 0, 0, 0.35);
+  --shadowIconTile: 0 8px 18px rgba(0, 0, 0, 0.18);
+
+  /* ---- Buttons (shape; colours below are brand-fixed so a button looks the same in every theme) ---- */
+  --btnPaddingY: 0.8125rem;
+  --btnPaddingX: 1.5rem;
+  --btnFontWeight: 700;
+  --btnPrimaryBg: var(--primaryRed);
+  --btnPrimaryText: var(--whiteColor);
+  --btnPrimaryHoverBg: #C71E23;
+  --btnAmberBg: var(--accentAmber);
+  --btnAmberText: var(--inkColor);
+  --btnAmberHoverBg: #E39512;
+
+  /* ---- Icon tile gradients (red / blue / amber / teal / violet) ---- */
+  --gradientRed: linear-gradient(135deg, #FF6B6F, #E3262B);
+  --gradientBlue: linear-gradient(135deg, #4A7BFF, #1647C9);
+  --gradientAmber: linear-gradient(135deg, #FFC65A, #F5A623);
+  --gradientTeal: linear-gradient(135deg, #3FA9A0, #18756E);
+  --gradientViolet: linear-gradient(135deg, #7A5CFF, #3B2BB0);
+
+  /* ---- Motion ---- */
+  --transitionFast: 0.2s ease;
+  --transitionBase: 0.35s ease;
+  --transitionSlow: 0.5s cubic-bezier(0.4, 0.1, 0.2, 1);
+
+  /* ---- Stacking order ---- */
+  --zNav: 100;
+  --zDropdown: 110;
+  --zDrawerOverlay: 190;
+  --zDrawer: 200;
+  --zFloat: 150;
+  --zModal: 300;
+}
+
+/* ==========================================================================
+   2. RESPONSIVE TOKENS (mobile-first: larger screens only raise the values)
+   ========================================================================== */
+@media (min-width: 768px) {
+  :root {
+    --heroHeadingFontSize: 2.75rem;
+    --headingFontSize: 2.125rem;
+    --cardHeadingFontSize: 1.1875rem;
+    --heroTextFontSize: 1.0625rem;
+    --statNumberFontSize: 2rem;
+    --statLabelFontSize: 0.875rem;
+    --sectionPaddingY: 4rem;
+    --sectionHeaderGap: 2.25rem;
+    --gridGap: 1.25rem;
+    --containerPaddingX: 1.25rem;
+    --bannerBorderRadius: 28px;
+    --tileBorderRadius: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --heroHeadingFontSize: 3.125rem;   /* 50px */
+    --headingFontSize: 2.25rem;        /* 36px */
+    --sectionPaddingY: 4.5rem;
+    --sectionHeaderGap: 2.5rem;
+    --gridGap: 1.5rem;
+    --navHeight: 76px;
+    --navLogoSize: 52px;
+    --navLinkFontSize: 0.96875rem;
+    --floatOffset: 22px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --sectionPaddingY: 4.75rem;
+  }
+}
+
+/* ==========================================================================
+   3. THEME: HYBRID  (default)
+      Dark navy top bar / nav / hero / footer + dark "feature" sections,
+      light content sections, light cards.
+   ========================================================================== */
+:root,
+[data-theme="hybrid"] {
+  --colorScheme: light;
+
+  /* Top bar + navbar (frosted, always semi-transparent) */
+  --topBarBg: var(--secondaryBlue);
+  --topBarTextColor: var(--whiteColor);
+  --topBarHighlightColor: var(--accentAmber);
+  --topBarIconBg: rgba(255, 255, 255, 0.18);
+  --navBg: rgba(10, 16, 32, 0.9);
+  --navBlur: 12px;
+  --navBorderColor: var(--primaryRed);
+  --navBrandColor: var(--whiteColor);
+  --navTextColor: var(--whiteColor);
+  --navHoverBg: rgba(255, 255, 255, 0.08);
+  --navActiveColor: var(--primaryRedLight);
+  --navActiveUnderline: var(--accentAmber);
+  --navButtonBorder: rgba(255, 255, 255, 0.3);
+  --dropdownBg: #101A38;
+  --dropdownBorder: var(--navy500);
+  --dropdownText: #DCE4FF;
+  --dropdownHoverBg: rgba(255, 255, 255, 0.08);
+  --drawerBg: var(--navy900);
+  --drawerText: var(--whiteColor);
+  --drawerBorder: var(--navy500);
+  --drawerOverlay: rgba(5, 8, 18, 0.6);
+  --logoBadgeBg: var(--whiteColor);
+  --logoBadgeRing: rgba(245, 166, 35, 0.45);
+
+  /* Page surfaces */
+  --pageBg: var(--mistColor);                       /* light content section */
+  --pageBgAlt: var(--whiteColor);                   /* alternate light section */
+  --headingColor: var(--inkColor);
+  --paragraphTextColor: var(--slateColor);
+  --mutedTextColor: var(--mutedColor);
+  --eyebrowColor: var(--primaryRed);
+  --linkColor: var(--secondaryBlue);
+  --dividerColor: var(--lineColor);
+
+  /* Hero */
+  --heroBg: radial-gradient(circle at 78% 30%, var(--navyGlow) 0%, var(--navy900) 62%);
+  --heroGridColor: rgba(255, 255, 255, 0.04);
+  --heroHeadingColor: var(--whiteColor);
+  --heroTextColor: #B9C4E3;
+  --heroAccentColor: var(--accentAmber);
+  --heroChipBg: var(--navy600);
+  --heroChipText: #8FB0FF;
+  --heroGhostBtnColor: var(--accentAmber);
+
+  /* Dark feature sections (Why Choose, Testimonials) */
+  --darkSectionBg: radial-gradient(circle at 85% 0%, var(--navyGlow) 0%, var(--navy900) 55%);
+  --darkSectionGridColor: rgba(255, 255, 255, 0.035);
+  --onDarkHeadingColor: var(--whiteColor);
+  --onDarkTextColor: #B4BFDC;
+  --onDarkEyebrowColor: var(--primaryRedLight);
+  --darkSectionCardBg: var(--whiteColor);           /* cards stay light on the dark section */
+  --darkSectionCardBorder: transparent;
+  --darkSectionCardShadow: 0 24px 50px rgba(0, 0, 0, 0.55);       /* faint 01-06 numbers */
+
+  /* Cards on light sections */
+  --cardBg: var(--whiteColor);
+  --cardBgSoft: var(--mistColor);
+  --cardBorderColor: var(--lineColor);
+  --cardHeadingColor: var(--inkColor);
+  --cardTextColor: var(--slateColor);
+  --cardShadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+  --cardHoverShadow: 0 18px 40px rgba(20, 33, 61, 0.16);
+  --iconTileBg: var(--paleBlue);
+  --tagBg: var(--paleBlue);
+  --tagTextColor: var(--secondaryBlue);
+  --priceColor: var(--primaryRed);
+  --oldPriceColor: var(--mutedColor);
+  --cardLinkColor: var(--secondaryBlue);
+  --badgeOfferBg: var(--accentAmber);
+  --badgeOfferText: var(--inkColor);
+  --badgeGovtBg: var(--secondaryBlue);
+  --badgeGovtText: var(--whiteColor);
+
+  /* Filter chips + course pills */
+  --chipBg: var(--whiteColor);
+  --chipBorderColor: #CBD6EE;
+  --chipTextColor: var(--inkColor);
+  --chipActiveBg: var(--secondaryBlue);
+  --chipActiveText: var(--whiteColor);
+  --pillHoverBg: var(--secondaryBlue);
+  --pillHoverText: var(--whiteColor);
+  --pillMoreColor: var(--secondaryBlue);
+
+  /* Footer */
+  --footerBg: var(--navy900);
+  --footerBorderTopColor: var(--primaryRed);
+  --footerHeadingColor: var(--whiteColor);
+  --footerTextColor: #AEB9D6;
+  --footerLinkColor: #AEB9D6;
+  --footerLinkHoverColor: var(--accentAmber);
+  --footerTaglineColor: var(--accentAmber);
+  --footerAccentColor: var(--accentAmber);
+  --footerStripBg: #141B33;
+  --footerStripBorder: var(--navy500);
+  --footerDividerColor: rgba(255, 255, 255, 0.1);
+  --footerIconBg: rgba(255, 255, 255, 0.1);
+  --footerIconColor: var(--whiteColor);
+
+  /* Forms (used by later pages) */
+  --inputBg: var(--whiteColor);
+  --inputBorderColor: #CBD6EE;
+  --inputTextColor: var(--inkColor);
+  --inputPlaceholderColor: var(--mutedColor);
+  --inputFocusBorderColor: var(--secondaryBlue);
+
+  /* Floating controls */
+  --switcherBg: rgba(10, 16, 32, 0.96);
+  --switcherBorder: rgba(255, 255, 255, 0.2);
+  --switcherIconColor: #B4BFDC;
+  --switcherActiveBg: var(--accentAmber);
+  --switcherActiveText: var(--inkColor);
+  --scrollTopBg: var(--secondaryBlue);
+  --scrollTopText: var(--whiteColor);
+  --focusRingColor: var(--accentAmber);
+}
+
+/* ==========================================================================
+   4. THEME: DARK  (everything dark navy; lighter red for text on dark)
+   ========================================================================== */
+[data-theme="dark"] {
+  --colorScheme: dark;
+
+  --topBarBg: var(--secondaryBlue);
+  --topBarTextColor: var(--whiteColor);
+  --topBarHighlightColor: var(--accentAmber);
+  --topBarIconBg: rgba(255, 255, 255, 0.18);
+  --navBg: rgba(10, 16, 32, 0.9);
+  --navBlur: 12px;
+  --navBorderColor: var(--primaryRed);
+  --navBrandColor: var(--whiteColor);
+  --navTextColor: var(--whiteColor);
+  --navHoverBg: rgba(255, 255, 255, 0.08);
+  --navActiveColor: var(--primaryRedLight);
+  --navActiveUnderline: var(--accentAmber);
+  --navButtonBorder: rgba(255, 255, 255, 0.3);
+  --dropdownBg: #101A38;
+  --dropdownBorder: var(--navy500);
+  --dropdownText: #DCE4FF;
+  --dropdownHoverBg: rgba(255, 255, 255, 0.08);
+  --drawerBg: var(--navy900);
+  --drawerText: var(--whiteColor);
+  --drawerBorder: var(--navy500);
+  --drawerOverlay: rgba(5, 8, 18, 0.6);
+  --logoBadgeBg: var(--whiteColor);
+  --logoBadgeRing: rgba(245, 166, 35, 0.45);
+
+  --pageBg: var(--navy800);
+  --pageBgAlt: #0B1228;
+  --headingColor: #F3F6FF;
+  --paragraphTextColor: #AEB9D6;
+  --mutedTextColor: #7E8BB0;
+  --eyebrowColor: var(--primaryRedLight);
+  --linkColor: var(--accentAmber);
+  --dividerColor: var(--navy500);
+
+  --heroBg: radial-gradient(circle at 78% 30%, var(--navyGlow) 0%, var(--navy900) 62%);
+  --heroGridColor: rgba(255, 255, 255, 0.04);
+  --heroHeadingColor: var(--whiteColor);
+  --heroTextColor: #B9C4E3;
+  --heroAccentColor: var(--accentAmber);
+  --heroChipBg: var(--navy600);
+  --heroChipText: #8FB0FF;
+  --heroGhostBtnColor: var(--accentAmber);
+
+  --darkSectionBg: var(--navy900);
+  --darkSectionGridColor: rgba(255, 255, 255, 0.025);
+  --onDarkHeadingColor: #F3F6FF;
+  --onDarkTextColor: #AEB9D6;
+  --onDarkEyebrowColor: var(--primaryRedLight);
+  --darkSectionCardBg: var(--navy700);
+  --darkSectionCardBorder: var(--navy500);
+  --darkSectionCardShadow: 0 24px 50px rgba(0, 0, 0, 0.6);
+
+  --cardBg: var(--navy700);
+  --cardBgSoft: var(--navy700);
+  --cardBorderColor: var(--navy500);
+  --cardHeadingColor: #F3F6FF;
+  --cardTextColor: #AEB9D6;
+  --cardShadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --cardHoverShadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --iconTileBg: var(--navy600);
+  --tagBg: var(--navy600);
+  --tagTextColor: #8FB0FF;
+  --priceColor: var(--primaryRedLight);
+  --oldPriceColor: #7E8BB0;
+  --cardLinkColor: var(--accentAmber);
+  --badgeOfferBg: var(--accentAmber);
+  --badgeOfferText: var(--inkColor);
+  --badgeGovtBg: var(--secondaryBlue);
+  --badgeGovtText: var(--whiteColor);
+
+  --chipBg: var(--navy700);
+  --chipBorderColor: #2C3E78;
+  --chipTextColor: #DCE4FF;
+  --chipActiveBg: var(--accentAmber);
+  --chipActiveText: var(--inkColor);
+  --pillHoverBg: var(--accentAmber);
+  --pillHoverText: var(--inkColor);
+  --pillMoreColor: var(--accentAmber);
+
+  --footerBg: var(--navy850);
+  --footerBorderTopColor: var(--primaryRed);
+  --footerHeadingColor: var(--whiteColor);
+  --footerTextColor: #AEB9D6;
+  --footerLinkColor: #AEB9D6;
+  --footerLinkHoverColor: var(--accentAmber);
+  --footerTaglineColor: var(--accentAmber);
+  --footerAccentColor: var(--accentAmber);
+  --footerStripBg: #0F1529;
+  --footerStripBorder: var(--navy500);
+  --footerDividerColor: rgba(255, 255, 255, 0.1);
+  --footerIconBg: rgba(255, 255, 255, 0.1);
+  --footerIconColor: var(--whiteColor);
+
+  --inputBg: var(--navy700);
+  --inputBorderColor: #2C3E78;
+  --inputTextColor: #F3F6FF;
+  --inputPlaceholderColor: #7E8BB0;
+  --inputFocusBorderColor: var(--accentAmber);
+
+  --switcherBg: rgba(10, 16, 32, 0.96);
+  --switcherBorder: rgba(255, 255, 255, 0.2);
+  --switcherIconColor: #B4BFDC;
+  --switcherActiveBg: var(--accentAmber);
+  --switcherActiveText: var(--inkColor);
+  --scrollTopBg: var(--accentAmber);
+  --scrollTopText: var(--inkColor);
+  --focusRingColor: var(--accentAmber);
+}
+
+/* ==========================================================================
+   5. THEME: LIGHT  (everything light; darker amber for text on light)
+   ========================================================================== */
+[data-theme="light"] {
+  --colorScheme: light;
+
+  --topBarBg: var(--secondaryBlue);
+  --topBarTextColor: var(--whiteColor);
+  --topBarHighlightColor: var(--accentAmberLight);
+  --topBarIconBg: rgba(255, 255, 255, 0.18);
+  --navBg: rgba(255, 255, 255, 0.72);
+  --navBlur: 14px;
+  --navBorderColor: var(--primaryRed);
+  --navBrandColor: var(--secondaryBlue);
+  --navTextColor: var(--inkColor);
+  --navHoverBg: rgba(22, 71, 201, 0.08);
+  --navActiveColor: var(--primaryRed);
+  --navActiveUnderline: var(--accentAmber);
+  --navButtonBorder: #CBD6EE;
+  --dropdownBg: var(--whiteColor);
+  --dropdownBorder: var(--lineColor);
+  --dropdownText: var(--inkColor);
+  --dropdownHoverBg: var(--paleBlue);
+  --drawerBg: var(--whiteColor);
+  --drawerText: var(--inkColor);
+  --drawerBorder: var(--lineColor);
+  --drawerOverlay: rgba(20, 33, 61, 0.45);
+  --logoBadgeBg: var(--whiteColor);
+  --logoBadgeRing: rgba(22, 71, 201, 0.25);
+
+  --pageBg: var(--mistColor);
+  --pageBgAlt: var(--whiteColor);
+  --headingColor: var(--inkColor);
+  --paragraphTextColor: var(--slateColor);
+  --mutedTextColor: var(--mutedColor);
+  --eyebrowColor: var(--primaryRed);
+  --linkColor: var(--secondaryBlue);
+  --dividerColor: var(--lineColor);
+
+  --heroBg: linear-gradient(135deg, #E4ECFF 0%, #FFFFFF 62%);
+  --heroGridColor: rgba(22, 71, 201, 0.06);
+  --heroHeadingColor: var(--inkColor);
+  --heroTextColor: var(--slateColor);
+  --heroAccentColor: var(--accentAmberDark);
+  --heroChipBg: var(--paleBlue);
+  --heroChipText: var(--secondaryBlue);
+  --heroGhostBtnColor: var(--accentAmberDark);
+
+  --darkSectionBg: var(--whiteColor);
+  --darkSectionGridColor: transparent;
+  --onDarkHeadingColor: var(--inkColor);
+  --onDarkTextColor: var(--slateColor);
+  --onDarkEyebrowColor: var(--primaryRed);
+  --darkSectionCardBg: var(--mistColor);
+  --darkSectionCardBorder: var(--lineColor);
+  --darkSectionCardShadow: 0 18px 40px rgba(20, 33, 61, 0.16);
+
+  --cardBg: var(--whiteColor);
+  --cardBgSoft: var(--mistColor);
+  --cardBorderColor: var(--lineColor);
+  --cardHeadingColor: var(--inkColor);
+  --cardTextColor: var(--slateColor);
+  --cardShadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+  --cardHoverShadow: 0 18px 40px rgba(20, 33, 61, 0.16);
+  --iconTileBg: var(--paleBlue);
+  --tagBg: var(--paleBlue);
+  --tagTextColor: var(--secondaryBlue);
+  --priceColor: var(--primaryRed);
+  --oldPriceColor: var(--mutedColor);
+  --cardLinkColor: var(--secondaryBlue);
+  --badgeOfferBg: var(--accentAmber);
+  --badgeOfferText: var(--inkColor);
+  --badgeGovtBg: var(--secondaryBlue);
+  --badgeGovtText: var(--whiteColor);
+
+  --chipBg: var(--whiteColor);
+  --chipBorderColor: #CBD6EE;
+  --chipTextColor: var(--inkColor);
+  --chipActiveBg: var(--secondaryBlue);
+  --chipActiveText: var(--whiteColor);
+  --pillHoverBg: var(--secondaryBlue);
+  --pillHoverText: var(--whiteColor);
+  --pillMoreColor: var(--secondaryBlue);
+
+  --footerBg: #E9EFFC;
+  --footerBorderTopColor: var(--primaryRed);
+  --footerHeadingColor: var(--inkColor);
+  --footerTextColor: var(--slateColor);
+  --footerLinkColor: var(--slateColor);
+  --footerLinkHoverColor: var(--secondaryBlue);
+  --footerTaglineColor: var(--accentAmberDark);
+  --footerAccentColor: var(--accentAmberDark);
+  --footerStripBg: var(--whiteColor);
+  --footerStripBorder: #CBD6EE;
+  --footerDividerColor: #CBD6EE;
+  --footerIconBg: var(--paleBlue);
+  --footerIconColor: var(--secondaryBlue);
+
+  --inputBg: var(--whiteColor);
+  --inputBorderColor: #CBD6EE;
+  --inputTextColor: var(--inkColor);
+  --inputPlaceholderColor: var(--mutedColor);
+  --inputFocusBorderColor: var(--secondaryBlue);
+
+  --switcherBg: rgba(255, 255, 255, 0.92);
+  --switcherBorder: #CBD6EE;
+  --switcherIconColor: var(--slateColor);
+  --switcherActiveBg: var(--secondaryBlue);
+  --switcherActiveText: var(--whiteColor);
+  --scrollTopBg: var(--secondaryBlue);
+  --scrollTopText: var(--whiteColor);
+  --focusRingColor: var(--secondaryBlue);
+}

@@ -1,0 +1,118 @@
+/* ==========================================================================
+   floating.css  -  Weblink Computers
+   Floating buttons: scroll-to-top (bottom-left); theme switcher with WhatsApp below it (bottom-right).
+   Sizes / offsets / z-index come from the global tokens (--floatButtonSize, --floatOffset, --zFloat).
+   No display: grid.
+   ========================================================================== */
+
+/* ---- Local tokens ---- */
+:root {
+  --whatsappBg: #25D366;
+  --whatsappText: #FFFFFF;
+  --whatsappHoverBg: #1EBE5A;
+}
+
+.floatGroup {
+  position: fixed;
+  bottom: var(--floatOffset);
+  z-index: var(--zFloat);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.floatLeft { left: var(--floatOffset); align-items: flex-start; }
+.floatRight { right: var(--floatOffset); align-items: flex-end; }
+
+.floatBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--floatButtonSize);
+  height: var(--floatButtonSize);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadowFloat);
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--transitionFast), background var(--transitionFast), opacity var(--transitionFast), visibility var(--transitionFast);
+}
+
+.floatBtn:hover { transform: translateY(-3px); }
+
+.floatIcon { display: flex; width: 1.625rem; height: 1.625rem; }
+.floatIcon svg { width: 100%; height: 100%; }
+
+.floatWhatsapp { background: var(--whatsappBg); color: var(--whatsappText); }
+.floatWhatsapp:hover { background: var(--whatsappHoverBg); }
+
+/* the scroll-top button is invisible until the page is scrolled down */
+.floatScrollTop {
+  background: var(--scrollTopBg);
+  color: var(--scrollTopText);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.floatScrollTop.isShown { opacity: 1; visibility: visible; }
+
+/* ---- Theme switcher ---- */
+.themeSwitcher {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
+}
+
+.themeToggle {
+  background: var(--switcherBg);
+  border: 1px solid var(--switcherBorder);
+  color: var(--switcherActiveBg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.themeMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  background: var(--switcherBg);
+  border: 1px solid var(--switcherBorder);
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--shadowFloat);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.themeOption {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 8.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: calc(var(--cardBorderRadius) - 6px);
+  background: transparent;
+  color: var(--switcherIconColor);
+  font-size: var(--smallFontSize);
+  font-weight: var(--fontWeightSemiBold);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transitionFast), color var(--transitionFast);
+}
+
+.themeOption:hover { background: var(--switcherBorder); }
+
+.themeOption.isActive {
+  background: var(--switcherActiveBg);
+  color: var(--switcherActiveText);
+}
+
+.themeOptionIcon { width: 1.25rem; text-align: center; font-size: 1.125rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .floatBtn:hover { transform: none; }
+}

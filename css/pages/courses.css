@@ -1,0 +1,54 @@
+/* ==========================================================================
+   courses.css  -  Weblink Computers  (courses.html)
+   Search box, result line, empty state. The cards, chips and help panel reuse shared components.
+   ========================================================================== */
+
+.coursesBody { padding-bottom: var(--sectionPaddingY); }
+
+.coursesToolbar { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.coursesToolbar .chipRow { margin-bottom: 0; }
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  max-width: 36rem;
+  padding: 0.25rem 1rem;
+  border: 1.5px solid var(--chipBorderColor);
+  border-radius: var(--chipBorderRadius);
+  background: var(--cardBg);
+  box-shadow: var(--cardShadow);
+  transition: border-color var(--transitionFast);
+}
+
+.searchBox:focus-within { border-color: var(--chipActiveBg); }
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--cardHeadingColor);
+  font: inherit;
+  font-size: 0.96rem;
+}
+
+.searchInput::placeholder { color: var(--mutedColor); }
+
+.resultLine { margin: 1.25rem 0; font-size: 0.875rem; color: var(--cardTextColor); text-align: center; }
+.resultLine strong { color: var(--cardHeadingColor); }
+
+.emptyState { padding: 3rem 1rem; text-align: center; }
+.emptyIcon { font-size: 3rem; }
+.emptyTitle { margin: 0.5rem 0 0.25rem; color: var(--cardHeadingColor); }
+.emptyText { margin-bottom: 1.25rem; color: var(--cardTextColor); }
+
+.coursesPage .morePanel { margin-top: var(--space2xl); }
+
+@media (min-width: 768px) {
+  .coursesToolbar { gap: 1.5rem; }
+  .resultLine { margin: 1.5rem 0; }
+}

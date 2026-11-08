@@ -1,0 +1,73 @@
+/* ==========================================================================
+   contact.css  -  Weblink Computers  (contact.html)
+   Quick cards, form + visit panels, branches heading. Form fields: components/form.css;
+   branch cards + map: components/branch-card.css. No display: grid.
+   ========================================================================== */
+
+.contactBody { padding-bottom: var(--sectionPaddingY); }
+
+.quickRow { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+
+.quickCard {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+  padding: 1.125rem;
+  border-radius: var(--cardBorderRadius);
+  background: var(--cardBg);
+  box-shadow: var(--cardShadow);
+  color: inherit;
+  transition: transform var(--transitionFast), box-shadow var(--transitionFast);
+}
+
+a.quickCard:hover { transform: translateY(-3px); box-shadow: var(--cardShadowHover, var(--cardShadow)); }
+
+.quickIcon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 14px;
+  background: var(--toneBlueTile);
+  font-size: 1.4rem;
+}
+
+.quickText { min-width: 0; }
+.quickLabel { display: block; color: var(--eyebrowColor); font-size: 0.78rem; font-weight: var(--fontWeightExtraBold); letter-spacing: 1px; text-transform: uppercase; }
+.quickValue { display: block; color: var(--cardHeadingColor); font-weight: var(--fontWeightExtraBold); overflow-wrap: anywhere; }
+
+.twoCol { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.panel { padding: 1.25rem; border-radius: var(--cardBorderRadius); background: var(--cardBg); box-shadow: var(--cardShadow); }
+.panelTitle { margin-bottom: 0.25rem; font-size: 1.375rem; color: var(--cardHeadingColor); }
+.panelText { margin-bottom: 1rem; color: var(--cardTextColor); font-size: 0.92rem; }
+
+.mapBox { overflow: hidden; height: 14rem; margin: 0.75rem 0 1rem; border-radius: 16px; background: var(--cardBgSoft); }
+
+.visitName { color: var(--cardHeadingColor); font-weight: var(--fontWeightExtraBold); }
+.visitText { margin: 0.25rem 0 0.875rem; color: var(--cardTextColor); font-size: 0.9rem; }
+.visitLinks { display: flex; flex-wrap: wrap; gap: 0.625rem; }
+
+.btnOutline { border: 1.5px solid var(--chipBorderColor); background: transparent; color: var(--cardLinkColor); }
+.btnOutline:hover { border-color: var(--chipActiveBg); background: var(--chipActiveBg); color: var(--chipActiveText); }
+
+.branchHead { margin-top: 2.5rem; }
+
+@media (min-width: 768px) {
+  .quickCard { flex: 1 1 calc(50% - 0.5rem); }
+  .panel { padding: 1.75rem; }
+  .mapBox { height: 16rem; }
+}
+
+@media (min-width: 1024px) {
+  .quickCard { flex: 1 1 0; }
+  .quickWide { flex-grow: 1.7; }
+  .twoCol { flex-direction: row; align-items: stretch; }
+  .twoCol > .panel { flex: 1 1 0; min-width: 0; }
+  .visitPanel { display: flex; flex-direction: column; }
+  .mapBox { flex: 1 1 auto; height: auto; min-height: 14rem; }
+}

@@ -1,0 +1,61 @@
+/* ==========================================================================
+   more-panel.css  -  Weblink Computers
+   The dashed "Can't find your course?" help panel (Home + Courses page).
+   Colours come from the global panel tokens.
+   ========================================================================== */
+
+:root {
+  /* ---- Local tokens: "Can't find your course?" panel ---- */
+  --panelBg: var(--cardBg);
+  --panelBorderColor: var(--chipBorderColor);
+  --panelShadow: var(--cardShadow);
+  --panelLabelBg: #FFF3DC;
+  --panelLabelText: #8A5A00;
+}
+
+[data-theme="dark"] {
+  --panelLabelBg: #3A2D0F;
+  --panelLabelText: var(--accentAmber);
+}
+
+.morePanel {
+  margin-top: var(--spaceXl);
+  padding: 1.375rem 1rem;
+  background: var(--panelBg);
+  border: 1.5px dashed var(--panelBorderColor);
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--panelShadow);
+  text-align: center;
+}
+
+.morePanelHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.morePanelLabel {
+  padding: 0.3125rem 0.75rem;
+  border-radius: var(--badgeBorderRadius);
+  background: var(--panelLabelBg);
+  color: var(--panelLabelText);
+  font-size: 0.75rem;
+  font-weight: var(--fontWeightExtraBold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.morePanelTitle { font-size: 1.1875rem; color: var(--cardHeadingColor); }
+
+.morePanelText {
+  margin: 0.375rem 0 1.25rem;
+  font-size: 0.90625rem;
+  color: var(--cardTextColor);
+}
+
+@media (min-width: 768px) {
+  .morePanel { margin-top: var(--space2xl); padding: 1.625rem 1.75rem; }
+  .morePanelTitle { font-size: 1.375rem; }
+}
