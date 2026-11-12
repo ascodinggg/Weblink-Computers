@@ -68,7 +68,7 @@ const homeData = {
   stats: [
     { icon: "🧑‍🏫", value: 20, suffix: "+", label: "Expert Faculty", countUp: true },
     { icon: "🏆", value: 25, suffix: "+", label: "Years of Experience", countUp: true },
-    { icon: "🎓", value: 5000, suffix: "+", label: "Students Trained", countUp: true },
+    { icon: "🎓", value: 25000, suffix: "+", label: "Students Trained", countUp: true },
     { icon: "♾️", text: "Lifetime", label: "Practice for All Students", countUp: false }
   ],
 
@@ -133,7 +133,7 @@ const homeData = {
     button: { label: "View Certifications →", href: "certifications.html" }
   },
 
-  /* ---- 7. Testimonials (DUMMY reviews: replace with real ones before launch) ---- */
+  /* ---- 7. Testimonials ---- */
   testimonials: {
     eyebrow: "Testimonials",
     title: "What Our Students Say",

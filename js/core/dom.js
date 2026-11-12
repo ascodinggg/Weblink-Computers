@@ -8,12 +8,12 @@
 const dom = {
 
   /* Create an element.
-     dom.create("div", { class: "card", href: "x" }, children)
-       attrs   : plain attributes. key "class" -> className, "text" -> textContent,
-                 "html" -> innerHTML (use only for trusted strings from the data files),
-                 "dataset" -> object of data-* values, "on" -> { click: fn }.
-                 null / undefined / false values are skipped.
-       children: a node, a string, or an array of them (null / false entries are skipped). */
+      dom.create("div", { class: "card", href: "x" }, children)
+        attrs   : plain attributes. key "class" -> className, "text" -> textContent,
+        "html" -> innerHTML (use only for trusted strings from the data files),
+        "dataset" -> object of data-* values, "on" -> { click: fn }.
+        null / undefined / false values are skipped.
+        children: a node, a string, or an array of them (null / false entries are skipped). */
   create(tag, attrs, children) {
     const element = document.createElement(tag);
     const props = attrs || {};
@@ -73,8 +73,7 @@ const dom = {
     return dom.create("a", Object.assign({ href: href }, attrs), children);
   },
 
-  /* An inline SVG icon from icons.js (iconsData): dom.icon("phone", "navIcon").
-     It takes its colour from the text colour (currentColor) and is hidden from screen readers. */
+  /* An inline SVG icon from icons.js (iconsData): dom.icon("phone", "navIcon"). It takes its colour from the text colour (currentColor) and is hidden from screen readers. */
   icon(name, className) {
     const definition = iconsData[name];
     if (!definition) return document.createTextNode("");
@@ -105,8 +104,7 @@ const dom = {
     else callback();
   },
 
-  /* Look up one item of a data list by its numeric id. Ids always come back from the URL or
-     from data as numbers or numeric strings, so both are compared as numbers. */
+  /* Look up one item of a data list by its numeric id. Ids always come back from the URL or from data as numbers or numeric strings, so both are compared as numbers. */
   byId(list, id) {
     const wanted = Number(id);
     return list.find((item) => Number(item.id) === wanted) || null;
